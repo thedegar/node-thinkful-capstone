@@ -1,5 +1,5 @@
 var express = require('express');
-var Item = require('../services/tournament');
+var Tournament = require('../services/tournament');
 var router = express.Router();
 
 /************Add HTTP routes below******************
