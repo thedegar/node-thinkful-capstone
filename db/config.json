@@ -1,0 +1,11 @@
+{
+    "production": {
+        "url": "mongodb://localhost/tournament"
+    },
+    "test": {
+        "url": "mongodb://localhost/tournament-test"
+    },
+    "development": {
+        "url": "mongodb://localhost/tournament-dev"
+    }
+}

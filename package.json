@@ -1,0 +1,24 @@
+{
+  "name": "capstone",
+  "version": "1.0.0",
+  "description": "Thinkful Node JS Capstone Project",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/thedegar/node-thinkful-capstone.git"
+  },
+  "author": "Tyler Hedegard",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/thedegar/node-thinkful-capstone/issues"
+  },
+  "homepage": "https://github.com/thedegar/node-thinkful-capstone#readme",
+  "dependencies": {
+    "express": "^4.13.3",
+    "mongodb": "^2.1.4",
+    "mongoose": "^4.3.6"
+  }
+}
