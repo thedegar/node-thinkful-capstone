@@ -6,8 +6,8 @@ var GameSchema = new mongoose.Schema({
     winner: String, 
     loser: String, 
     teamOneScore: Number, 
-    teamTwoScore: Number, 
-    id: Number
+    teamTwoScore: Number,
+    tournament: { type: mongoose.Schema.Types.ObjectId, ref: 'Tournament' }
 });
 
 var Game = mongoose.model('Game', GameSchema);

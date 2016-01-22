@@ -1,0 +1,17 @@
+var Tournament = {
+    name: "Test tourney", 
+    bracket_type: "Double", 
+    teams: ["Team1","Team2","Team3","Team4","Team5","Team6","Team7","Team8"], 
+    date: 1/25/16, 
+    id: 100, 
+    location: "Austin, TX", 
+    start_time: 10am, 
+    sport: "Softball", 
+    director: { type: Schema.Types.ObjectId, ref: 'User' }, 
+    password: "password", 
+    game_length: 60, 
+    field_count: 3, 
+    field_names: ["Field1","Field2","Field3"],
+    officials: ["John","Joe","Jeff"], 
+    games: []
+    };

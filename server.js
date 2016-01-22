@@ -1,6 +1,6 @@
 require('./db/connect');
 var express = require('express');
-var tournamentRoutes = require('./routes/tournament');
+var tournamentRoutes = require('./routes/tournaments');
 var userRoutes = require('./routes/users');
 var gameRoutes = require('./routes/games');
 var app = express();

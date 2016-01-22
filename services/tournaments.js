@@ -1,4 +1,4 @@
-var Tournament = require('../models/tournament');
+var Tournament = require('../models/tournaments');
 
 //Here are the db.routes or functions
 exports.save = function(tournament_object, callback, errback) {
