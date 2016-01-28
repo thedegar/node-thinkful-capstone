@@ -3,6 +3,8 @@
 <head>
 	<meta charset="UTF-8">
 	<title>Tourneys Online</title>
+	<script src="https://code.jquery.com/jquery-2.1.3.min.js"></script>
+	<script src="../js/app.js"></script>
 	<link rel="stylesheet" href="../css/main.css" type="text/css">
 </head>
 <body>
@@ -11,22 +13,20 @@
 		<p>TourneysOnline.com</p>
 	</div>
     <div id="createTourney">
-        <form>
-            Tournament Type: <br> 
-            <input type="text" name="bracketType" placeholder="Single or Double Elimination"><br>
-            Team Count: <br>
-            <input type="text" name="teamCount" placeholder="How many teams"><br>
-            Teams: <br>
-            <input type="text" name="team1" placeholder="Team 1" class="teams"><br>
-            <input type="text" name="team2" placeholder="Team 2" class="teams"><br>
-            <input type="text" name="team3" placeholder="Team 3" class="teams"><br>
-            <input type="text" name="team4" placeholder="Team 4" class="teams"><br>
-            <input type="text" name="team5" placeholder="Team 5" class="teams"><br>
-            <input type="text" name="team6" placeholder="Team 6" class="teams"><br>
-            <input type="text" name="team7" placeholder="Team 7" class="teams"><br>
-            <input type="text" name="team8" placeholder="Team 8" class="teams"><br>
-            <input type="submit" value="Submit"/>
-        </form>
+        Tournament Type: <br> 
+        <input type="text" id="bracketType" placeholder="Single or Double Elimination"><br>
+        Team Count: <br>
+        <input type="number" id="teamCount" placeholder="How many teams" min=4><br>
+        Teams: <br>
+        <input type="text" id="team1" value="Team 1" class="teams"><br>
+        <input type="text" id="team2" value="Team 2" class="teams"><br>
+        <input type="text" id="team3" value="Team 3" class="teams"><br>
+        <input type="text" id="team4" value="Team 4" class="teams"><br>
+        <input type="text" id="team5" value="Team 5" class="teams"><br>
+        <input type="text" id="team6" value="Team 6" class="teams"><br>
+        <input type="text" id="team7" value="Team 7" class="teams"><br>
+        <input type="text" id="team8" value="Team 8" class="teams"><br>
+        <input id="tourneySubmit" type="submit" value="Submit"/>
     </div>
     <div id="footer">
 		<div id="left_foot">
