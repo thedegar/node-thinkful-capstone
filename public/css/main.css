@@ -1,0 +1,123 @@
+/** {
+	outline: 1px dashed red;
+}*/
+
+body {
+	width: 1100px;
+}
+
+#header {
+	height: 150px;
+	background-color: #86868D;
+	border-radius: 10px;
+}
+
+#header img {
+	float: left;
+	padding: 5px 0 5px 5px;
+	margin-right: 10px;
+}
+
+#header p {
+	font-size: 100px;
+	text-align: center;
+	margin: 0;
+	position: relative;
+	top: 16px;
+	font-weight: bold;
+}
+
+#buttons {
+	height: 250px;
+	clear: both;
+}
+
+#buttons div {
+	float: left;
+	height: 130px;
+	width: 240px;
+	background-color: #99999B;
+	border-radius: 10px;
+	text-align: center;
+}
+
+#buttons div h3 {
+	font-size: 24px;
+	margin: 40px 0 0 0 ;
+}
+
+#buttons div h5 {
+	font-size: 16px;
+	margin: 0;
+}
+
+#buttons img {
+	float: right;
+	height: 210px;
+	width: auto;
+	position: relative;
+	right: 19px;
+	top: 14px;
+	border: 2px solid black;
+}
+
+.button {
+	margin: 50px 10px;
+}
+
+#description {
+	height: 200px;
+	clear: both;
+}
+
+#description img {
+	float: left;
+	display: inline-block;
+}
+
+#description p {
+	width: 600px;
+	font-size: 16px;
+	display: inline-block;
+	position: relative;
+	left: 10px;
+	margin: 0;
+}
+
+#description ul {
+	float: right;
+	position: relative;
+	bottom: 0;
+	right: 50px;
+	font-size: 18px;
+	margin: 0;
+}
+
+#footer {
+	clear: both;
+	height: 50px;
+	background-color: #DBDBDD;
+	border-radius: 10px;
+	position: relative;
+	bottom: 0;
+}
+
+#footer img {
+	height: 40px;
+	width: auto;
+	margin: 5px 5px;
+}
+
+#left_foot {
+	float: left;
+	margin: 0 5px;
+}
+
+#right_foot {
+	float: right;
+	margin: 15px 5px;
+}
+
+#right_foot a {
+	margin: 0 5px;
+}
