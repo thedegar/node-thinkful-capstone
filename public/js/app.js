@@ -37,7 +37,7 @@ $(document).ready(function() {
         }
     };
     
-    var createTourney = function() {
+    var createTournament = function() {
         getTeams();
         var tournament = {
             'teams': teamList
@@ -48,24 +48,20 @@ $(document).ready(function() {
             dataType: 'json',
             contentType: 'application/json'
         });
-        ajax.done(console.log("Done"));
+        ajax.done(getTournaments);
     };
     
-    $("#tourneySubmit").on('click', createTourney); //need to turn this into a post to create a tournament 
+    var getTournaments = function() {
+    var ajax = $.ajax('/tournament', {
+        type: 'GET',
+        dataType: 'json'
+    });
+    ajax.done(console.log(this.data));
+    };
+    
+    $("#tourneySubmit").on('click', createTournament); //need to turn this into a post to create a tournament 
     
     $("#teamCount").on('keyup', getTeamCount);
     $("#teamCount").on('focusout',getTeamCount);
-    
-    /*
-    ShoppingList.prototype.addItem = function(name) {
-    var item = {'name': name};
-    var ajax = $.ajax('/items', {
-        type: 'POST',
-        data: JSON.stringify(item),
-        dataType: 'json',
-        contentType: 'application/json'
-    });
-    ajax.done(this.getItems.bind(this));
-    };
-    */
+
 });

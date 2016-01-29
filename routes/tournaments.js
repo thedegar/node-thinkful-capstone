@@ -4,13 +4,13 @@ var router = express.Router();
 
 
 //post a new tournament
-router.post('/tournament', Tournament.postItem);
+router.post('/tournament', Tournament.postTournament);
+
+router.get('/tournament', Tournament.getList);
 
 /************Add HTTP routes below******************
 
 get an existing tournament
-
-post a new tournament
 
 put (update) an existing tournament
 
