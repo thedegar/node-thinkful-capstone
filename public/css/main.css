@@ -121,3 +121,7 @@ body {
 #right_foot a {
 	margin: 0 5px;
 }
+
+#delete {
+	float: right;
+}

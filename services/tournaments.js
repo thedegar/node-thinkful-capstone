@@ -21,17 +21,17 @@ exports.list = function(callback, errback) {
     });
 };
 
-/* not expected to work <<<<<<<
-exports.delete = function(id, callback, errback) {
-    Tournament.where().findOneAndRemove({_id: id}, function(err, item) {
+exports.delete = function(callback, errback) {
+    Tournament.remove( {} , function(err, tournaments) {
         if (err) {
             errback(err);
             return;
         }
-        callback(item);
+        callback(tournaments);
     });
 };
 
+/* not expected to work <<<<<<<
 exports.update = function(id, name, callback, errback) {
     Tournament.findOneAndUpdate({_id:id},{name: name}, {new:true}, function(err, item) {
         if (err) {

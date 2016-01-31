@@ -3,7 +3,7 @@ var mongoose = require('mongoose');
 var TournamentSchema = new mongoose.Schema({
     name: String, 
     bracketType: String, 
-    teams: Array, 
+    teams: [String], 
     date: Date,
     location: String, 
     startTime: Number, 

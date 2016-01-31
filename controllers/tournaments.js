@@ -3,7 +3,7 @@ var Tournament = require('../services/tournaments');
 exports.postTournament = function(req, res) {
     Tournament.save(req.body, function(tournament) {
         res.status(201).json(tournament);
-        console.log("Tournament Created "+tournament);
+        console.log("Tournament Created "+tournament._id);
     }, function(err) {
         res.status(400).json(err);
     });
@@ -12,9 +12,17 @@ exports.postTournament = function(req, res) {
 exports.getList = function(req, res) {
     Tournament.list(function(tournaments) {
         res.json(tournaments);
-        console.log("Tournament List Sent: "+tournaments);
+        console.log("Tournament List Sent: "+tournaments.length+" Total");
     }, function(err) {
         res.status(400).json(err);
-        console.log("Error");
+    });
+};
+
+exports.deleteTournaments = function(req, res) {
+    Tournament.delete(function(tournaments) {
+        res.status(200).json(tournaments);
+        console.log("Tournaments Deleted");
+    }, function(err) {
+        res.status(400).json(err);
     });
 };

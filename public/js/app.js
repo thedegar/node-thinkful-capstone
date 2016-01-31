@@ -5,8 +5,18 @@
 //////////////////////////////////////////////
 
 $(document).ready(function() {
+    var socket = io();
     var teamCount = 8;
     var teamList = [];
+    var name;
+    var type;
+    var date;
+    var location;
+    var start;
+    var sport;
+    var gameLength;
+    var fields;
+    var tournamentList;
     
     var getTeams = function() {
         var count = $(".teams").length;
@@ -15,6 +25,18 @@ $(document).ready(function() {
             var team = "#team"+i;
             teamList.push($(team).val());
         }
+    };
+    
+    var getInfo = function() {
+        getTeams();
+        name = $('#name').val();
+        type = $('#bracketType').val();  
+        date = $('#date').val();
+        location = $('#location').val();
+        start = $('#startTime').val();
+        sport = $('#sport').val();
+        gameLength = $('#gameLength').val();
+        fields = $('#fieldCount').val();
     };
     
     var getTeamCount = function() {
@@ -38,10 +60,24 @@ $(document).ready(function() {
     };
     
     var createTournament = function() {
-        getTeams();
+        getInfo();
         var tournament = {
-            'teams': teamList
+            'name': name,
+            'bracketType': type,
+            'teams': teamList, 
+            'date': date,
+            'location': location, 
+            'startTime': start, 
+            'sport': sport, 
+            'director': null, 
+            'password': null, 
+            'gameLength': gameLength, 
+            'fieldCount': fields, 
+            'fieldNames': [],
+            'officials': [], 
+            'games': []
         };
+        //console.log(JSON.stringify(tournament));
         var ajax = $.ajax('/tournament', {
             type: 'POST',
             data: JSON.stringify(tournament),
@@ -52,11 +88,36 @@ $(document).ready(function() {
     };
     
     var getTournaments = function() {
-    var ajax = $.ajax('/tournament', {
-        type: 'GET',
-        dataType: 'json'
-    });
-    ajax.done(console.log(this.data));
+        var ajax = $.ajax('/tournament', {
+            type: 'GET',
+            dataType: 'json'
+        });
+        ajax.done(this.onGetTournamentsDone.bind(this));  //Can't figure out how to get the tournaments into front end
+            //I think I need to use sockets.io, but the shopping list app was able to handle it without sockets...
+    };
+    
+    //Tried to replicate what was done in shopping list app
+    var onGetTournamentsDone = function(tournaments) {
+        this.tournaments = tournaments;
+        console.log(tournaments);
+        this.updateTournamentsView();
+    };
+    
+    var updateTournamentsView = function() {
+        var context = {
+            tournaments: this.tournaments
+        };
+        var tournamentList = $(this.tournamentListTemplate(context));
+        this.tournamentList.replaceWith(tournamentList);
+        this.tournamentList = tournamentList;
+    };
+    
+    var deleteTournaments = function() {
+        var ajax = $.ajax('/tournament', {
+            type: 'DELETE',
+            dataType: 'json'
+        });
+        ajax.done(getTournaments);
     };
     
     $("#tourneySubmit").on('click', createTournament); //need to turn this into a post to create a tournament 
@@ -64,4 +125,5 @@ $(document).ready(function() {
     $("#teamCount").on('keyup', getTeamCount);
     $("#teamCount").on('focusout',getTeamCount);
 
+    $("#delete").on('click', deleteTournaments);
 });
