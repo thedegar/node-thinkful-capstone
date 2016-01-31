@@ -92,15 +92,16 @@ $(document).ready(function() {
             type: 'GET',
             dataType: 'json'
         });
-        ajax.done(this.onGetTournamentsDone.bind(this));  //Can't figure out how to get the tournaments into front end
+        ajax.done(onGetTournamentsDone);
+        //ajax.done(onGetTournamentsDone);  //Can't figure out how to get the tournaments into front end
             //I think I need to use sockets.io, but the shopping list app was able to handle it without sockets...
     };
     
     //Tried to replicate what was done in shopping list app
     var onGetTournamentsDone = function(tournaments) {
-        this.tournaments = tournaments;
         console.log(tournaments);
-        this.updateTournamentsView();
+        //manipulate DOM here
+        
     };
     
     var updateTournamentsView = function() {
