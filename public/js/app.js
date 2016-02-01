@@ -16,7 +16,7 @@ $(document).ready(function() {
     var sport;
     var gameLength;
     var fields;
-    var tournamentList;
+    var tournamentList = [];
     
     var getTeams = function() {
         var count = $(".teams").length;
@@ -99,9 +99,16 @@ $(document).ready(function() {
     
     //Tried to replicate what was done in shopping list app
     var onGetTournamentsDone = function(tournaments) {
-        console.log(tournaments);
         //manipulate DOM here
-        
+        tournamentList = [];
+        $("#tournamentList").show();
+        $("#tournamentList>ul").empty();
+        for (var i in tournaments) {
+            tournamentList.push(tournaments[i]._id);
+            console.log(tournaments[i]._id);
+            $("#tournamentList>ul").append("<li>"+tournaments[i]._id+"</li>");
+        }
+        console.log(tournamentList);
     };
     
     var updateTournamentsView = function() {

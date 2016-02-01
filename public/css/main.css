@@ -125,3 +125,11 @@ body {
 #delete {
 	float: right;
 }
+
+#createTourney, #tournamentList{
+	float: left;
+}
+
+#tournamentList ul li {
+	padding: 3px;
+}
