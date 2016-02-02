@@ -10,6 +10,8 @@ router.get('/tournament', Tournament.getList);
 
 router.delete('/tournament', Tournament.deleteTournaments); //later need to add to delete only specific _id
 
+router.get('/tournament/:id', Tournament.getTournament);
+
 /************Add HTTP routes below******************
 
 get an existing tournament

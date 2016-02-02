@@ -33,7 +33,7 @@ $(document).ready(function() {
         type = $('#bracketType').val();  
         date = $('#date').val();
         location = $('#location').val();
-        start = $('#startTime').val();
+        //start = $('#startTime').val();  //having a value here breaks the POST...suspect timestamp format issue
         sport = $('#sport').val();
         gameLength = $('#gameLength').val();
         fields = $('#fieldCount').val();
@@ -105,19 +105,9 @@ $(document).ready(function() {
         $("#tournamentList>ul").empty();
         for (var i in tournaments) {
             tournamentList.push(tournaments[i]._id);
-            console.log(tournaments[i]._id);
-            $("#tournamentList>ul").append("<li>"+tournaments[i]._id+"</li>");
+            $("#tournamentList>ul").append("<li class='tournamentID'>"+tournaments[i]._id+"</li>");
         }
-        console.log(tournamentList);
-    };
-    
-    var updateTournamentsView = function() {
-        var context = {
-            tournaments: this.tournaments
-        };
-        var tournamentList = $(this.tournamentListTemplate(context));
-        this.tournamentList.replaceWith(tournamentList);
-        this.tournamentList = tournamentList;
+        $(".tournamentID").on('click', getOneTournament);
     };
     
     var deleteTournaments = function() {
@@ -128,10 +118,35 @@ $(document).ready(function() {
         ajax.done(getTournaments);
     };
     
-    $("#tourneySubmit").on('click', createTournament); //need to turn this into a post to create a tournament 
+    //Get a single tournament's information
+    var getOneTournament = function() {
+        var id = $(this).text();
+        var ajax = $.ajax('/tournament/'+id, {
+            type: 'GET',
+            dataType: 'json'
+        });
+        ajax.done(onGetOneTournamentDone); //do something with the returned tournament
+    };
     
-    $("#teamCount").on('keyup', getTeamCount);
-    $("#teamCount").on('focusout',getTeamCount);
-
-    $("#delete").on('click', deleteTournaments);
+    var onGetOneTournamentDone = function(tournament) {  //56affece4f9cf7a46c3703df has team names
+        $('#name').val(tournament.name);
+        $('#bracketType').val(tournament);  
+        $('#date').val(tournament.bracketType);
+        $('#location').val(tournament.location);
+        //start = $('#startTime').val();
+        $('#sport').val(tournament.sport);
+        $('#gameLength').val(tournament.gameLength);
+        $('#fieldCount').val(tournament.fieldCount);
+    };
+    
+    $("#tourneySubmit").on('click', createTournament); //post route and get route triggered
+    $("#delete").on('click', deleteTournaments);  //delete and get route route triggered
+    $(".tournamentID").on('click', getOneTournament); //get route triggered
+        //**********Problem****************
+        //Here this can't be true for all new instances of .tournamentID.  
+        //**********Resolution*************
+        //Had to copy this line of code into the onGetTournamentsDone function to instanciate the listener
+        //I think making the prototype would fix this as well.
+    $("#teamCount").on('keyup', getTeamCount);  //for frontend
+    $("#teamCount").on('focusout',getTeamCount);  //for frontend
 });

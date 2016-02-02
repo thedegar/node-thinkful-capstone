@@ -128,8 +128,17 @@ body {
 
 #createTourney, #tournamentList{
 	float: left;
+	padding-right: 10px;
 }
 
 #tournamentList ul li {
 	padding: 3px;
+}
+
+#tournamentList, #tourneyUpdate {
+	display: none;
+}
+
+.tournamentID {
+	border: 1px solid black;
 }
