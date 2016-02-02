@@ -13,27 +13,12 @@ router.delete('/tournament', Tournament.deleteTournaments); //later need to add 
 router.get('/tournament/:id', Tournament.getTournament);
 
 router.delete('/tournament/:id', Tournament.deleteTournament); 
+    //************Problem********************
+    //sometimes deleting multiple tournaments too quickly crashes the server due to name being null
+    //need to add async logic.
+    //************Resolution*****************
+    //
 
 router.put('/tournament/:id', Tournament.updateTournament);
-
-/************Add HTTP routes below******************
-
-get an existing tournament
-
-put (update) an existing tournament
-
-delete an existing tournament
-
-********below were from thinkful shopping list project**********
-
-router.get('/items', Item.getList);
-
-router.post('/items', Item.postItem);
-
-router.delete('/items/:id', Item.deleteItem);
-
-router.put('/items/:id', Item.updateItem);
-*/
-
 
 module.exports = router;
