@@ -51,9 +51,8 @@ exports.deleteOne = function(id, callback, errback) {
     });
 };
 
-/* not expected to work <<<<<<<
-exports.update = function(id, name, callback, errback) {
-    Tournament.findOneAndUpdate({_id:id},{name: name}, {new:true}, function(err, item) {
+exports.updateOne = function(id, tournament_object, callback, errback) {
+    Tournament.findOneAndUpdate({_id:id},tournament_object, {new:true, upsert:true}, function(err, item) {
         if (err) {
             errback(err);
             return;
@@ -61,4 +60,3 @@ exports.update = function(id, name, callback, errback) {
         callback(item);
     });
 };
-*/

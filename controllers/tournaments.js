@@ -46,3 +46,14 @@ exports.deleteTournament = function(req, res) {
         res.status(400).json(err);
     });
 };
+
+exports.updateTournament = function(req, res) {
+    var id = req.params.id;
+    Tournament.updateOne(id, req.body, function(tournament) {
+        res.json(tournament);
+        console.log(tournament);
+        console.log("Tournament ID="+tournament._id+" updated");
+    }, function(err) {
+        res.status(400).json(err);
+    });
+};

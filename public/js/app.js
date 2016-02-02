@@ -42,21 +42,24 @@ $(document).ready(function() {
     };
     
     var getTeamCount = function() {
-        teamCount = $(this).val();
+        teamCount = $("#teamCount").val();
         var domCount = $(".teams").length;
         if (domCount < teamCount) {
             var delta =  teamCount - domCount;
             for (var i=1; i<=delta; i+=1) {
                 var newTeamNum = domCount+i;
                 var newTeam = '<input type="text" id="team'+newTeamNum+'" value="Team '+newTeamNum+'" class="teams"><br>';
-                $("#tourneySubmit").before(newTeam);
+                $("#tourneyUpdate").before(newTeam);
             }
         }
         else if (domCount > teamCount) {
             var delta = domCount - teamCount;
             for (var i=1; i<=delta; i+=1) {
-                $(".teams").last().remove();
-                $("#createTourney br").last().remove();
+                if ($(".teams").length > 4) {
+                    //never go less than 4 teams
+                    $(".teams").last().remove().next("br").remove(); //Can't remove a few breaks
+                    $("#createTourney>br:nth-last-of-type(3)").remove();
+                }
             }
         }
     };
@@ -79,7 +82,6 @@ $(document).ready(function() {
             'officials': [], 
             'games': []
         };
-        //console.log(JSON.stringify(tournament));
         var ajax = $.ajax('/tournament', {
             type: 'POST',
             data: JSON.stringify(tournament),
@@ -148,7 +150,11 @@ $(document).ready(function() {
         $('#gameLength').val(liveTournament.gameLength);
         $('#fieldCount').val(liveTournament.fieldCount);
         $('#teamCount').val(liveTournament.teams.length);
-        getTeamCount;
+        getTeamCount();
+        for (var i=0;i<liveTournament.teams.length;i++) {
+            $('#team'+(i+1)).val(liveTournament.teams[i]);
+        }
+        $('#tourneyUpdate').show();
     };
     
     var deleteOneTournament = function() {
@@ -162,6 +168,33 @@ $(document).ready(function() {
     
     var deleteOneTournamentDone = function(tournament) {
         $("li:contains("+tournament._id+")").remove();
+    };
+    
+    var updateOneTournament = function() {
+        getInfo();
+        var tournament = {
+            'name': name,
+            'bracketType': type,
+            'teams': teamList, 
+            'date': date,
+            'location': location, 
+            'startTime': start, 
+            'sport': sport, 
+            'director': null, 
+            'password': null, 
+            'gameLength': gameLength, 
+            'fieldCount': fields, 
+            'fieldNames': [],
+            'officials': [], 
+            'games': []
+        };
+        var ajax = $.ajax('/tournament/'+liveTournament._id, {
+            type: 'PUT',
+            data: JSON.stringify(tournament),
+            dataType: 'json',
+            contentType: 'application/json'
+        });
+        ajax.done(console.log(tournament));
     };
     
     $("#tourneySubmit").on('click', createTournament); //post route and get route triggered
@@ -178,6 +211,9 @@ $(document).ready(function() {
         //**********Resolution*************
         //Had to copy this line of code into the onGetTournamentsDone function to instanciate the listener
         //I think making the prototype would fix this as well.
+    $("#tourneyUpdate").on('click', updateOneTournament);  //update one route triggered
+
     $("#teamCount").on('keyup', getTeamCount);  //for frontend
     $("#teamCount").on('focusout',getTeamCount);  //for frontend
+    getTournaments();
 });

@@ -14,6 +14,8 @@ router.get('/tournament/:id', Tournament.getTournament);
 
 router.delete('/tournament/:id', Tournament.deleteTournament); 
 
+router.put('/tournament/:id', Tournament.updateTournament);
+
 /************Add HTTP routes below******************
 
 get an existing tournament
