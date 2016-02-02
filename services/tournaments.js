@@ -41,6 +41,16 @@ exports.getOne = function(id, callback, errback) {
     });
 };
 
+exports.deleteOne = function(id, callback, errback) {
+    Tournament.findOneAndRemove({'_id': id}, function(err, tournament) {
+        if (err) {
+            errback(err);
+            return;
+        }
+        callback(tournament);
+    });
+};
+
 /* not expected to work <<<<<<<
 exports.update = function(id, name, callback, errback) {
     Tournament.findOneAndUpdate({_id:id},{name: name}, {new:true}, function(err, item) {

@@ -6,6 +6,8 @@
 
 $(document).ready(function() {
     var socket = io();
+    var liveTournament;
+    
     var teamCount = 8;
     var teamList = [];
     var name;
@@ -87,7 +89,8 @@ $(document).ready(function() {
         ajax.done(getTournaments);
     };
     
-    var getTournaments = function() {
+    var getTournaments = function(tournament) {
+        liveTournament = tournament;
         var ajax = $.ajax('/tournament', {
             type: 'GET',
             dataType: 'json'
@@ -108,6 +111,7 @@ $(document).ready(function() {
             $("#tournamentList>ul").append("<li class='tournamentID'>"+tournaments[i]._id+"</li>");
         }
         $(".tournamentID").on('click', getOneTournament);
+        $(".tournamentID").on('dblclick', deleteOneTournament);
     };
     
     var deleteTournaments = function() {
@@ -129,19 +133,46 @@ $(document).ready(function() {
     };
     
     var onGetOneTournamentDone = function(tournament) {  //56affece4f9cf7a46c3703df has team names
-        $('#name').val(tournament.name);
-        $('#bracketType').val(tournament);  
-        $('#date').val(tournament.bracketType);
-        $('#location').val(tournament.location);
+        liveTournament = tournament;
+        $('#name').val(liveTournament.name);
+        $('#bracketType').val(liveTournament.bracketType);  
+        $('#date').val(liveTournament.date); 
+        //***************Problem*********************
+        //This date is not the same format as the front end form is expecting.
+        //Need to fix this.
+        //***************Resolution******************
+        //
+        $('#location').val(liveTournament.location);
         //start = $('#startTime').val();
-        $('#sport').val(tournament.sport);
-        $('#gameLength').val(tournament.gameLength);
-        $('#fieldCount').val(tournament.fieldCount);
+        $('#sport').val(liveTournament.sport);
+        $('#gameLength').val(liveTournament.gameLength);
+        $('#fieldCount').val(liveTournament.fieldCount);
+        $('#teamCount').val(liveTournament.teams.length);
+        getTeamCount;
+    };
+    
+    var deleteOneTournament = function() {
+        var id = $(this).text();
+        var ajax = $.ajax('/tournament/'+id, {
+            type: 'DELETE',
+            dataType: 'json'
+        });
+        ajax.done(deleteOneTournamentDone);
+    };
+    
+    var deleteOneTournamentDone = function(tournament) {
+        $("li:contains("+tournament._id+")").remove();
     };
     
     $("#tourneySubmit").on('click', createTournament); //post route and get route triggered
     $("#delete").on('click', deleteTournaments);  //delete and get route route triggered
     $(".tournamentID").on('click', getOneTournament); //get route triggered
+        //**********Problem****************
+        //Here this can't be true for all new instances of .tournamentID.  
+        //**********Resolution*************
+        //Had to copy this line of code into the onGetTournamentsDone function to instanciate the listener
+        //I think making the prototype would fix this as well.
+    $(".tournamentID").on('dblclick', deleteOneTournament);  //delete one route triggered
         //**********Problem****************
         //Here this can't be true for all new instances of .tournamentID.  
         //**********Resolution*************
