@@ -215,5 +215,6 @@ $(document).ready(function() {
 
     $("#teamCount").on('keyup', getTeamCount);  //for frontend
     $("#teamCount").on('focusout',getTeamCount);  //for frontend
-    getTournaments();
+    getTournaments();  //show tournaments for dev
+    $("#delete").hide(); //hide delete all button
 });

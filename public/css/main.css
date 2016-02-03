@@ -142,3 +142,9 @@ body {
 .tournamentID {
 	border: 1px solid black;
 }
+
+#login {
+	float: right;
+	padding-top: 5px;
+	display: none;
+}
