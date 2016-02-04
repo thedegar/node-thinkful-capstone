@@ -3,9 +3,7 @@ var express = require('express');
 var bodyParser = require('body-parser');
 var socket_io = require('socket.io');
 var http = require('http');
-var tournamentRoutes = require('./routes/tournaments');
-//var userRoutes = require('./routes/users');
-//var gameRoutes = require('./routes/games');
+var routes = require('./routes/routes');
 var app = express();
 
 app.use(bodyParser.json());
@@ -20,7 +18,7 @@ io.on('connection', function (socket) {
 
 server.listen(8080);
 
-app.use('/', tournamentRoutes);
+app.use('/', routes);
 app.use('*', function(req, res) {
     res.status(404).json({ message: 'Not Found' });
 });

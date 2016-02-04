@@ -197,6 +197,15 @@ $(document).ready(function() {
         ajax.done(console.log(tournament));
     };
     
+    var checkUserID = function() {
+        var userID = $("#userID").val();
+        var ajax = $.ajax('/user/'+userID, {
+            type: 'GET',
+            datatype: 'json'
+        });
+        ajax.done(console.log('hit'));
+    };
+    
     $("#tourneySubmit").on('click', createTournament); //post route and get route triggered
     $("#delete").on('click', deleteTournaments);  //delete and get route route triggered
     $(".tournamentID").on('click', getOneTournament); //get route triggered
@@ -215,6 +224,29 @@ $(document).ready(function() {
 
     $("#teamCount").on('keyup', getTeamCount);  //for frontend
     $("#teamCount").on('focusout',getTeamCount);  //for frontend
-    getTournaments();  //show tournaments for dev
+    //getTournaments();  //show tournaments for dev
     $("#delete").hide(); //hide delete all button
+    
+    //Login Triggers
+    $("#loginButton").on('click', checkUserID);  //login/register trigger
+    
+    
+    //Testing jquery-bracket library
+    var minimalData = {
+        teams : [
+            ["Team 1", "Team 2"], /* first matchup */
+            ["Team 3", "Team 4"]  /* second matchup */
+        ],
+        results : [
+            [[1,2], [3,4]],       /* first round */
+            [[4,6], [2,1]]        /* second round */
+        ]
+    };
+    //console.log(minimalData);
+ 
+    var bracket = $(function() {
+        $('#minimal .demo').bracket({
+            init: minimalData /* data to initialize the bracket with */ });
+    });
+    //console.log(bracket);
 });

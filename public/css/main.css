@@ -146,5 +146,13 @@ body {
 #login {
 	float: right;
 	padding-top: 5px;
+	/*display: none;*/
+}
+
+#login h2 {
+	display: none;
+}
+
+#bracket {
 	display: none;
 }
